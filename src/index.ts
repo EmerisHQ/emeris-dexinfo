@@ -6,6 +6,7 @@ import { routes } from "./routes";
 import SwapDB from './SwapDB';
 import { EmerisDEXInfo } from '@emeris/types';
 import { OsmosisSource } from './sources/osmosis';
+import DenomDB from './DenomDB';
 
 const server: FastifyInstance = Fastify({})
 
@@ -36,6 +37,7 @@ const start = async () => {
   routes.forEach((route) => {
     route.add(server);
   });
+  await DenomDB.isLoaded();
   const gdex = new GravityDexSource('https://api.emeris.com/v1/liquidity', true, 5000);
   gdex.on('swaps', (data) => { SwapDB.update(EmerisDEXInfo.DEX.Gravity, data) });
   const osmo = new OsmosisSource('https://lcd-osmosis.keplr.app', true, 5000);
@@ -44,7 +46,7 @@ const start = async () => {
     await server.listen(3000);
     server.swagger();
   } catch (err) {
-    server.log.error(err)
+    console.log(err)
     process.exit(1)
   }
 }
