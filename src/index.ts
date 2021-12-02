@@ -38,7 +38,7 @@ const start = async () => {
     route.add(server);
   });
   await DenomDB.isLoaded();
-  const gdex = new GravityDexSource('https://api.emeris.com/v1/liquidity', true, 5000);
+  const gdex = new GravityDexSource('https://api.emeris.com/v1', true, 5000);
   gdex.on('swaps', (data) => { SwapDB.update(EmerisDEXInfo.DEX.Gravity, data) });
   const osmo = new OsmosisSource('https://lcd-osmosis.keplr.app', true, 5000);
   osmo.on('swaps', (data) => { SwapDB.update(EmerisDEXInfo.DEX.Osmosis, data) });

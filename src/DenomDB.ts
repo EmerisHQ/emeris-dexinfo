@@ -1,5 +1,5 @@
 import "@emeris/types";
-import { EmerisAPI } from "@emeris/types";
+import { EmerisAPI, EmerisDEXInfo } from "@emeris/types";
 import axios, { AxiosResponse } from "axios";
 
 class DenomDB {
@@ -7,10 +7,12 @@ class DenomDB {
 	private loaded: Promise<boolean>;
 	private initializer: (value?: boolean | PromiseLike<boolean>) => void;
 	private traces: Map<string, EmerisAPI.VerifyTrace>;
+	
 	constructor() {
 		this.denoms = []
 		this.loaded = new Promise((resolve) => { this.initializer = resolve; });
 		this.traces = new Map();
+	
 		this.init();
 	}
 	isLoaded() {
@@ -27,6 +29,12 @@ class DenomDB {
 	}
 	get() {
 		return this.denoms;
+	}
+	traceSync(denom: string, chain: string) {
+		return this.traces.get(chain + ':' + denom);
+	}
+	find(baseDenom: string) {
+		return this.denoms.find(x => x.name == baseDenom);
 	}
 	async trace(denom: string, chain: string) {
 		const exists = this.traces.get(chain + ':' + denom);
