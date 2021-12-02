@@ -38,12 +38,12 @@ const start = async () => {
     route.add(server);
   });
   await DenomDB.isLoaded();
-  const gdex = new GravityDexSource('https://api.emeris.com/v1', true, 5000);
+  const gdex = new GravityDexSource('https://api.emeris.com/v1', true, 10000);
   gdex.on('swaps', (data) => { SwapDB.update(EmerisDEXInfo.DEX.Gravity, data) });
-  const osmo = new OsmosisSource('https://lcd-osmosis.keplr.app', true, 5000);
+  const osmo = new OsmosisSource('https://lcd-osmosis.keplr.app', true, 10000);
   osmo.on('swaps', (data) => { SwapDB.update(EmerisDEXInfo.DEX.Osmosis, data) });
   try {
-    await server.listen(3000);
+    await server.listen(8080);
     server.swagger();
   } catch (err) {
     console.log(err)

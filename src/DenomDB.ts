@@ -21,7 +21,7 @@ class DenomDB {
 	async init() {		
 			await this.fetchDenoms();
 			this.initializer();
-			setTimeout(this.fetchDenoms.bind(this), 5000);		
+			setTimeout(this.fetchDenoms.bind(this), 30000);		
 	}
 	async fetchDenoms() {
 		let data:AxiosResponse<EmerisAPI.VerifiedDenomsResponse> = await axios.get('https://api.emeris.com/v1/verified_denoms');
