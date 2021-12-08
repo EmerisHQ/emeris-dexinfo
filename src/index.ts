@@ -43,7 +43,7 @@ const start = async () => {
   const osmo = new OsmosisSource('https://lcd-osmosis.keplr.app', true, 10000);
   osmo.on('swaps', (data) => { SwapDB.update(EmerisDEXInfo.DEX.Osmosis, data) });
   try {
-    await server.listen(8080);
+    await server.listen(8080,'0.0.0.0');
     server.swagger();
   } catch (err) {
     console.log(err)

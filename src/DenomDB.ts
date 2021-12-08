@@ -42,9 +42,13 @@ class DenomDB {
 			return exists;
 		} else {
 			const ibc_hash = denom.split('/')[1];
-			let data: AxiosResponse<EmerisAPI.VerifyTraceResponse> = await axios.get('https://api.emeris.com/v1/chain/' + chain + '/denom/verify_trace/' + ibc_hash);
-			this.traces.set(chain + ':' + denom, data.data.verify_trace);
-			return data.data.verify_trace;
+			try {
+				let data: AxiosResponse<EmerisAPI.VerifyTraceResponse> = await axios.get('https://api.emeris.com/v1/chain/' + chain + '/denom/verify_trace/' + ibc_hash);
+				this.traces.set(chain + ':' + denom, data.data.verify_trace);
+				return data.data.verify_trace;
+			}catch(e) {
+				return { verified: false };
+			}
 		}
 	}
 }
