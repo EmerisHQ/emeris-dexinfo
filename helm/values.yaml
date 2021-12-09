@@ -1,0 +1,17 @@
+image: gcr.io/tendermint-dev/emeris-dexinfo:main
+imagePullPolicy: Always
+
+replicas: 1
+
+nodeSelector: {}
+
+resources:
+  requests:
+    cpu: 250m
+    memory: 256Mi
+  limits:
+    cpu: 250m
+    memory: 256Mi
+
+ports:
+  http: 8080
