@@ -114,6 +114,8 @@ export class GravityDexSource extends SwapSource {
 						baseDenom: traceB ? traceB.base_denom : denomA.name,
 						precision: denomB.precision
 					},
+					balanceA: amountA,
+					balanceB: amountB,
 					swapPrice: '' + price.times((new BigNumber(10 ** (denomA.precision - denomB.precision)))).toString(),
 					swapType: EmerisDEXInfo.SwapType.Pool
 				})
