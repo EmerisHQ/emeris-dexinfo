@@ -26,6 +26,8 @@ export class OsmosisSource extends SwapSource {
 			const reserveB = filtered[i].poolAssets[1].token.denom;
 			const balanceA =  filtered[i].poolAssets[0].token.amount;
 			const balanceB =  filtered[i].poolAssets[1].token.amount;
+			const weightA =  filtered[i].poolAssets[0].weight / filtered[i].totalWeight 
+			const weightB =  filtered[i].poolAssets[1].weight / filtered[i].totalWeight 
 			let price = (new BigNumber(filtered[i].poolAssets[1].token.amount)).dividedBy( new BigNumber(filtered[i].poolAssets[0].token.amount)).times( (new BigNumber(filtered[i].poolAssets[0].weight).dividedBy(new BigNumber(filtered[i].poolAssets[1].weight))));
 			let traceA, traceB, denomA, denomB = null;
 			let valid = true;
@@ -76,6 +78,8 @@ export class OsmosisSource extends SwapSource {
 					},
 					balanceA,
 					balanceB,
+					weightA,
+					weightB,
 					swapPrice: '' + price.times((new BigNumber(10 ** (denomA.precision - denomB.precision)))).toString(),
 					swapType: EmerisDEXInfo.SwapType.Pool
 				})
