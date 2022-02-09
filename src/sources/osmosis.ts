@@ -57,6 +57,7 @@ export class OsmosisSource extends SwapSource {
 				}
 			}
 			if (valid) {
+				console.log(filtered[i]);
 				verified_swaps.push( {
 					name: filtered[i].id,
 					id: EmerisDEXInfo.DEX.Osmosis+'/'+filtered[i].id,
@@ -81,6 +82,7 @@ export class OsmosisSource extends SwapSource {
 					weightA,
 					weightB,
 					swapPrice: '' + price.times((new BigNumber(10 ** (denomA.precision - denomB.precision)))).toString(),
+					swapFeeRate: parseFloat(filtered[i].poolParams.swapFee),
 					swapType: EmerisDEXInfo.SwapType.Pool
 				})
 			}
