@@ -1,20 +1,23 @@
 {
   "name": "emeris-dexinfo",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "main": "index.js",
   "scripts": {
     "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1",
     "prestart": "npm run build",
-    "start": "node dist/index.js"
+    "start": "node  dist/index.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@cosmjs/amino": "^0.26.5",
+    "@cosmjs/amino": "^0.27.1",
+    "@emeris/mapper": "0.0.5",
+    "@emeris/signer": "0.0.23",
     "@sinclair/typebox": "^0.20.5",
+    "@starport/vuex": "^0.1.58",
     "axios": "^0.24.0",
     "bech32": "^2.0.0",
     "bignumber.js": "^9.0.1",
@@ -22,7 +25,7 @@
     "fastify-swagger": "^4.12.6"
   },
   "devDependencies": {
-    "@emeris/types": "0.0.5",
+    "@emeris/types": "0.0.11",
     "@types/axios": "^0.14.0",
     "@types/node": "^16.11.7",
     "typescript": "^4.5.2"

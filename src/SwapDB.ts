@@ -1,4 +1,3 @@
-import "@emeris/types";
 import { EmerisDEXInfo } from "@emeris/types";
 export type SwapData = {
 	[key in EmerisDEXInfo.DEX]?: EmerisDEXInfo.Swap[]
@@ -15,6 +14,9 @@ class SwapDB {
 	}
 	get() {
 		return Object.values(this.swaps).flat();
+	}
+	find(dex: EmerisDEXInfo.DEX, id: string) {
+		return this.swaps[dex].find(x => x.name == id);
 	}
 }
 const SwapDBInstance = new SwapDB();

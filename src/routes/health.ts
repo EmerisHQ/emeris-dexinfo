@@ -6,7 +6,7 @@ const HealthResponse = Type.Object({
 });
 type HealthResponseType = Static<typeof HealthResponse>;
 
-export function add(server: FastifyInstance) {
+function add(server: FastifyInstance) {
   server.get<{ Reply: HealthResponseType }>(
     "/-/health",
     {
@@ -24,3 +24,4 @@ export function add(server: FastifyInstance) {
     }
   );
 }
+export default { add };
