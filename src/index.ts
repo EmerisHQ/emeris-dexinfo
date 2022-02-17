@@ -1,5 +1,5 @@
 
-import Fastify, { FastifyInstance, RouteShorthandOptions } from 'fastify'
+import Fastify, { FastifyInstance } from 'fastify'
 import fastifySwagger from "fastify-swagger";
 import { GravityDexSource } from './sources/gravitydex'
 import { routes } from "./routes";

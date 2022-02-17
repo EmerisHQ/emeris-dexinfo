@@ -1,4 +1,3 @@
-import "@emeris/types";
 import { EmerisDEXInfo } from "@emeris/types";
 export type SwapData = {
 	[key in EmerisDEXInfo.DEX]?: EmerisDEXInfo.Swap[]

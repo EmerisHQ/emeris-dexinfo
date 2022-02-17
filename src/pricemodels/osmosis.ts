@@ -1,8 +1,7 @@
-import { Amount } from "@emeris/types/lib/EmerisBase";
-import { Swap } from "@emeris/types/lib/EmerisDEXInfo";
+import { EmerisDEXInfo, EmerisTransactions } from "@emeris/types";
 import BigNumber from "bignumber.js";
 
-export function returnAmount(inputCoin: Amount, pool: Swap) {
+export function returnAmount(inputCoin: EmerisTransactions.AbstractAmount, pool: EmerisDEXInfo.Swap) {
 	let isReverse;
 	if (inputCoin.denom === pool.denomA.denom) {
 		isReverse = false;

@@ -1,5 +1,4 @@
-import "@emeris/types";
-import { EmerisAPI, EmerisDEXInfo } from "@emeris/types";
+import { EmerisAPI } from "@emeris/types";
 import axios, { AxiosResponse } from "axios";
 
 class DenomDB {

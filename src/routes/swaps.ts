@@ -1,6 +1,5 @@
-import { Static, Type } from "@sinclair/typebox";
 import { FastifyInstance } from "fastify/types/instance";
-import { SwapsResponse  } from "@emeris/types/lib/EmerisDEXInfo";
+import { EmerisDEXInfo  } from "@emeris/types";
 import SwapDB from "../SwapDB";
 function add(server: FastifyInstance) {
 	server.get('/swaps', {
@@ -9,7 +8,7 @@ function add(server: FastifyInstance) {
 		},
 		schema: {
 			response: {
-				'2xx': SwapsResponse
+				'2xx': EmerisDEXInfo.SwapsResponse
 			}
 		}
 	}

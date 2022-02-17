@@ -56,8 +56,7 @@ export class OsmosisSource extends SwapSource {
 					valid = false;
 				}
 			}
-			if (valid) {
-				console.log(filtered[i]);
+			if (valid) {				
 				verified_swaps.push( {
 					name: filtered[i].id,
 					id: EmerisDEXInfo.DEX.Osmosis+'/'+filtered[i].id,
