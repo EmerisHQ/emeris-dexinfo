@@ -1,3 +1,4 @@
+import { EmerisFees } from "@emeris/types";
 import axios from "axios";
 import BigNumber from "bignumber.js";
 
