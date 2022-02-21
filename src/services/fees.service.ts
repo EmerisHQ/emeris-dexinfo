@@ -4,7 +4,7 @@ import BigNumber from "bignumber.js";
 export default class FeeService {
     static async calculateFees({gasUsed, gasPriceLevel, chain}){
         try{
-            const inputGasPriceLevel = gasPriceLevel ? gasPriceLevel : 'average';
+            const inputGasPriceLevel = gasPriceLevel ? gasPriceLevel : EmerisFees.GasPriceLevel.Average;
             const denom = chain?.denoms?.find((denom) => !!denom.fee_token);
             const feeAmount = new BigNumber(gasUsed).multipliedBy((denom as any).gas_price_levels[inputGasPriceLevel]).toNumber();
             const prices = await axios.get('https://api.emeris.com/v1/oracle/prices');
