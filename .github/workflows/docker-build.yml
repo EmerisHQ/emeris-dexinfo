@@ -49,4 +49,12 @@ jobs:
           token: ${{ secrets.TENDERBOT_GIT_TOKEN }}
           repository: allinbits/demeris-backend
           event-type: dev-push-dexinfo
-          client-payload: '{"repo_name":"emeris-dexinfo","branch_name":"main","image_name":"emeris-dexinfo","image_sha":"${{ github.sha }}","service_name":"dexinfo"}'
+          client-payload: |
+            {
+              "repo_name":"emeris-dexinfo",
+              "branch_name":"main",
+              "image_name":"emeris-dexinfo",
+              "image_sha":"${{ github.sha }}",
+              "service_name":"dexinfo",
+              "deploy_type":"deploy_dev"
+            }
