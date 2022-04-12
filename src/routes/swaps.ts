@@ -3,8 +3,8 @@ import { EmerisDEXInfo  } from "@emeris/types";
 import SwapDB from "../SwapDB";
 function add(server: FastifyInstance) {
 	server.get('/swaps', {
-		handler(_, reply) {
-			reply.send({ swaps: SwapDB.get() })
+		async handler(_, reply) {
+			reply.send({ swaps: await SwapDB.get() })
 		},
 		schema: {
 			response: {

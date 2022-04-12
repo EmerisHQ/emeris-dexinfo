@@ -4,18 +4,30 @@ export type SwapData = {
 };
 
 class SwapDB {
-	private swaps:SwapData
+	private swaps: SwapData
+	private sourceList:string[]=[]
+	private loader: ()=>void
+	private loadingPromise: Promise<void>
 	constructor() {
 		this.swaps = {}
+		this.loadingPromise = new Promise((resolve) => { this.loader = resolve; });
+	}
+	setSources(sourceList: string[]) {
+		this.sourceList = sourceList;
 	}
 	update(dex: EmerisDEXInfo.DEX, data: EmerisDEXInfo.Swap[]) {
 //		console.log(data);
 		this.swaps[dex] = data;
+		if (this.sourceList.every((source) => this.swaps[source])) {
+			this.loader();
+		}
 	}
-	get() {
+	async get() {
+		await this.loadingPromise;
 		return Object.values(this.swaps).flat();
 	}
-	find(dex: EmerisDEXInfo.DEX, id: string) {
+	async find(dex: EmerisDEXInfo.DEX, id: string) {
+		await this.loadingPromise;
 		return this.swaps[dex].find(x => x.name == id);
 	}
 }
