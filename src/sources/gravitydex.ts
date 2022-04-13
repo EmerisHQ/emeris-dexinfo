@@ -1,41 +1,10 @@
 import axios from "axios";
 import { SwapSource } from "./source";
 import DenomDB from "../DenomDB";
-import { EmerisAPI, EmerisDEXInfo } from "@emeris/types";
+import { EmerisDEXInfo } from "@emeris/types";
 import BigNumber from "bignumber.js";
-import { Coin } from '@cosmjs/amino';
-import { bech32 } from 'bech32';
+import { keyHashfromAddress, fixIBC, parseCoins } from "../utils";
 
-function toHexString(byteArray) {
-	return Array.prototype.map
-		.call(byteArray, function (byte) {
-			return ('0' + (byte & 0xff).toString(16)).slice(-2);
-		})
-		.join('');
-}
-function keyHashfromAddress(address: string): string {
-	try {
-		return toHexString(bech32.fromWords(bech32.decode(address).words));
-	} catch (e) {
-		throw new Error('Could not decode address');
-	}
-}
-
-
-function parseCoins(input: string): Coin[] {
-  return input
-    .replace(/\s/g, '')
-    .split(',')
-    .filter(Boolean)
-    .map((part) => {
-      const match = part.match(/^([0-9]+)([a-zA-Z0-9\/-]{2,127})$/);
-      if (!match) throw new Error('Got an invalid coin string');
-      return {
-        amount: BigInt(match[1]).toString(),
-        denom: match[2],
-      };
-    });
-}
 export class GravityDexSource extends SwapSource {
 	
 	async realFetch(): Promise<void> {
@@ -103,14 +72,14 @@ export class GravityDexSource extends SwapSource {
 					denomA: {
 						name: denomA.name,
 						displayName: denomA.display_name,
-						denom: traceA ? traceA.ibc_denom : denomA.name,
+						denom: traceA ? fixIBC(traceA.ibc_denom) : denomA.name,
 						baseDenom: traceA ? traceA.base_denom : denomA.name,
 						precision: denomA.precision
 					},
 					denomB: {
 						name: denomB.name,
 						displayName: denomB.display_name,
-						denom: traceB ? traceB.ibc_denom : denomB.name,
+						denom: traceB ? fixIBC(traceB.ibc_denom) : denomB.name,
 						baseDenom: traceB ? traceB.base_denom : denomB.name,
 						precision: denomB.precision
 					},

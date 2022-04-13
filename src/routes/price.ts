@@ -9,7 +9,7 @@ function add(server: FastifyInstance) {
 		async handler(request, reply) {
 			const protocol = request.body.swap_id.split('/')[0];
 			const swap_id = request.body.swap_id.split('/')[1];
-			const swap = SwapDB.find(protocol as EmerisDEXInfo.DEX, swap_id);
+			const swap = await SwapDB.find(protocol as EmerisDEXInfo.DEX, swap_id);
 			switch (protocol as EmerisDEXInfo.DEX) {
 				case EmerisDEXInfo.DEX.Gravity:
 					reply.send(gravityReturnAmount(request.body.inputAmount, swap));
