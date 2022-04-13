@@ -12,7 +12,11 @@ export abstract class SwapSource extends EventEmitter{
 		this.fetch();
 	}
 	async fetch(): Promise<void> {
-		await this.realFetch()	
+		try {
+			await this.realFetch()	
+		}catch(e) {
+			console.log(e);
+		}
 		if (this.autoUpdate) {			
 			setTimeout(this.fetch.bind(this), this.timeOut)
 		}
