@@ -3,6 +3,7 @@ import axios from "axios";
 import { SwapSource } from "./source";
 import DenomDB from "../DenomDB";
 import BigNumber from "bignumber.js";
+import { fixIBC } from "../utils";
 
 export class OsmosisSource extends SwapSource {
 	async realFetch(): Promise<void> {
@@ -65,14 +66,14 @@ export class OsmosisSource extends SwapSource {
 					denomA: {
 						name: denomA.name,
 						displayName: denomA.display_name,
-						denom: traceA ?traceA.ibc_denom : denomA.name,
+						denom: traceA ? fixIBC(traceA.ibc_denom) : denomA.name,
 						baseDenom: traceA?traceA.base_denom: denomA.name,
 						precision: denomA.precision
 					},
 					denomB:  {
 						name: denomB.name,
 						displayName: denomB.display_name,
-						denom: traceB ?traceB.ibc_denom : denomB.name,
+						denom: traceB ? fixIBC(traceB.ibc_denom) : denomB.name,
 						baseDenom: traceB?traceB.base_denom: denomB.name,
 						precision: denomB.precision
 					},
