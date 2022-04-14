@@ -2,6 +2,7 @@ import { EmerisDEXInfo } from "@emeris/types";
 import { FastifyInstance } from "fastify/types/instance";
 import { returnAmount as gravityReturnAmount } from "../pricemodels/gravity";
 import { returnAmount as osmosisReturnAmount} from "../pricemodels/osmosis";
+import { returnAmount as crescentReturnAmount} from "../pricemodels/crescent";
 import SwapDB from "../SwapDB";
 
 function add(server: FastifyInstance) {
@@ -16,6 +17,9 @@ function add(server: FastifyInstance) {
 					break;
 				case EmerisDEXInfo.DEX.Osmosis:
 					reply.send(osmosisReturnAmount(request.body.inputAmount, swap));
+					break;
+				case EmerisDEXInfo.DEX.Crescent:
+					reply.send(crescentReturnAmount(request.body.inputAmount, swap));
 					break;
 			}
 		}, 
