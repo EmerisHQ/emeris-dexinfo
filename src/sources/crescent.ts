@@ -3,7 +3,7 @@ import { SwapSource } from "./source";
 import DenomDB from "../DenomDB";
 import { EmerisDEXInfo } from "@emeris/types";
 import BigNumber from "bignumber.js";
-import { keyHashfromAddress, fixIBC, parseCoins } from "../utils";
+import { fixIBC } from "../utils";
 
 
 export class CrescentSource extends SwapSource {
@@ -73,38 +73,6 @@ export class CrescentSource extends SwapSource {
 					valid = false;
 				}
 			}
-			console.log(traceA);
-			console.log(traceB);
-			console.log(denomA);
-			console.log(denomB);
-			/*
-			console.log({
-				name: swaps[i].id,
-				id: EmerisDEXInfo.DEX.Crescent + '/' + swaps[i].id,
-				chainId: 'crescent',
-				protocol: EmerisDEXInfo.DEX.Crescent,
-				denomA: {
-					name: denomA.name,
-					displayName: denomA.display_name,
-					denom: traceA ? fixIBC(traceA.ibc_denom) : denomA.name,
-					baseDenom: traceA ? traceA.base_denom : denomA.name,
-					precision: denomA.precision
-				},
-				denomB: {
-					name: denomB.name,
-					displayName: denomB.display_name,
-					denom: traceB ? fixIBC(traceB.ibc_denom) : denomB.name,
-					baseDenom: traceB ? traceB.base_denom : denomB.name,
-					precision: denomB.precision
-				},
-				balanceA: amountA,
-				balanceB: amountB,
-				weightA: 0.5,
-				weightB: 0.5,
-				swapPrice: '' + price.times((new BigNumber(10 ** (denomA.precision - denomB.precision)))).toString(),
-				swapFeeRate: 0,
-				swapType: EmerisDEXInfo.SwapType.Pool
-			}); */
 			if (valid) {
 				verified_swaps.push({
 					name: swaps[i].id,

@@ -39,11 +39,9 @@ const start = async () => {
     route.add(server);
   });
   await DenomDB.isLoaded();
-  SwapDB.setSources([
-    //EmerisDEXInfo.DEX.Gravity,
-    EmerisDEXInfo.DEX.Osmosis, EmerisDEXInfo.DEX.Crescent]);
-  //const gdex = new GravityDexSource('https://api.emeris.com/v1', true, 10000);
-  //gdex.on('swaps', (data) => { SwapDB.update(EmerisDEXInfo.DEX.Gravity, data) });
+  SwapDB.setSources([EmerisDEXInfo.DEX.Gravity, EmerisDEXInfo.DEX.Osmosis, EmerisDEXInfo.DEX.Crescent]);
+  const gdex = new GravityDexSource('https://api.emeris.com/v1', true, 10000);
+  gdex.on('swaps', (data) => { SwapDB.update(EmerisDEXInfo.DEX.Gravity, data) });
   const osmo = new OsmosisSource('https://lcd-osmosis.keplr.app', true, 10000);
   osmo.on('swaps', (data) => { SwapDB.update(EmerisDEXInfo.DEX.Osmosis, data) });
   const crescent = new CrescentSource('https://mainnet.crescent.network:1317', true, 10000);
