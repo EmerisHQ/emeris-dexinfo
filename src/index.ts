@@ -5,8 +5,7 @@ import { routes } from "./routes";
 import SwapDB from './SwapDB';
 import { EmerisDEXInfo } from '@emeris/types';
 import { OsmosisSource } from './sources/osmosis';
-import DenomDB from './DenomDB';
-import { CrescentSource } from './sources/crescent';
+import DenomDB from './DenomDB';';
 
 const server: FastifyInstance = Fastify({})
 
@@ -38,11 +37,9 @@ const start = async () => {
     route.add(server);
   });
   await DenomDB.isLoaded();
-  SwapDB.setSources([EmerisDEXInfo.DEX.Osmosis, EmerisDEXInfo.DEX.Crescent]);
+  SwapDB.setSources([EmerisDEXInfo.DEX.Osmosis]);
   const osmo = new OsmosisSource('https://lcd-osmosis.keplr.app', true, 10000);
   osmo.on('swaps', (data) => { SwapDB.update(EmerisDEXInfo.DEX.Osmosis, data) });
-  const crescent = new CrescentSource('https://mainnet.crescent.network:1317', true, 10000);
-  crescent.on('swaps', (data) => { SwapDB.update(EmerisDEXInfo.DEX.Crescent, data) });
   try {
     await server.listen(8080,'0.0.0.0');
     server.swagger();
