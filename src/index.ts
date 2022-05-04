@@ -5,7 +5,7 @@ import { routes } from "./routes";
 import SwapDB from './SwapDB';
 import { EmerisDEXInfo } from '@emeris/types';
 import { OsmosisSource } from './sources/osmosis';
-import DenomDB from './DenomDB';';
+import DenomDB from './DenomDB';
 
 const server: FastifyInstance = Fastify({})
 
