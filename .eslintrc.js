@@ -1,7 +1,7 @@
 module.exports = {
   root: true,
   parser: '@typescript-eslint/parser',
-  plugins: ['@typescript-eslint'],
+  plugins: ['@typescript-eslint', 'prettier'],
   extends: [
     'eslint:recommended',
     'plugin:@typescript-eslint/eslint-recommended',
@@ -43,6 +43,20 @@ module.exports = {
 
     'max-lines': [1, { max: 300, skipBlankLines: true, skipComments: true }],
     'max-lines-per-function': [1, { max: 50, skipBlankLines: true, skipComments: true }],
+
+    'prettier/prettier': [
+      'error',
+      {
+        trailingComma: 'all',
+        tabWidth: 2,
+        semi: true,
+        singleQuote: true,
+        printWidth: 120,
+        endOfLine: 'auto',
+        useTabs: false,
+        bracketSameLine: false,
+      },
+    ],
 
     '@typescript-eslint/no-explicit-any': 'off',
     '@typescript-eslint/ban-ts-comment': 'off',
