@@ -26,7 +26,7 @@ class DenomDB {
   }
   async fetchDenoms() {
     const data: AxiosResponse<EmerisAPI.VerifiedDenomsResponse> = await axios.get(
-      "https://api.emeris.com/v1/verified_denoms",
+      'https://api.emeris.com/v1/verified_denoms',
     );
     this.denoms = data.data.verified_denoms;
   }
