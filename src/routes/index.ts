@@ -3,4 +3,4 @@ import swaps from './swaps';
 import fees from './fees';
 import price from './price';
 
-export const routes = [health,swaps,fees,price];
+export const routes = [health, swaps, fees, price];
