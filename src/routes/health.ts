@@ -17,7 +17,7 @@ function add(server: FastifyInstance) {
         },
       },
     },
-    async (request) => {
+    async () => {
       return {
         time: new Date().toISOString(),
       };

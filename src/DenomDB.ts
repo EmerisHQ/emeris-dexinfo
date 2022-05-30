@@ -25,7 +25,7 @@ class DenomDB {
     setTimeout(this.fetchDenoms.bind(this), 30000);
   }
   async fetchDenoms() {
-    let data: AxiosResponse<EmerisAPI.VerifiedDenomsResponse> = await axios.get(
+    const data: AxiosResponse<EmerisAPI.VerifiedDenomsResponse> = await axios.get(
       'https://api.emeris.com/v1/verified_denoms',
     );
     this.denoms = data.data.verified_denoms;
@@ -40,14 +40,14 @@ class DenomDB {
     return this.denoms.find((x) => x.name == baseDenom);
   }
   async trace(denom: string, chain: string) {
-    //console.log('just for testing');
+    //console.log('just for testing..');
     const exists = this.traces.get(chain + ':' + denom);
     if (exists) {
       return exists;
     } else {
       const ibc_hash = denom.split('/')[1];
       try {
-        let data: AxiosResponse<EmerisAPI.VerifyTraceResponse> = await axios.get(
+        const data: AxiosResponse<EmerisAPI.VerifyTraceResponse> = await axios.get(
           'https://api.emeris.com/v1/chain/' + chain + '/denom/verify_trace/' + ibc_hash,
         );
         this.traces.set(chain + ':' + denom, data.data.verify_trace);
