@@ -21,7 +21,7 @@ export class OsmosisSource extends SwapSource {
 	async normalize(swaps) {
 		const filtered = swaps.filter(x => x.poolAssets.length == 2);
 		const verified_swaps = [];
-		let verified_denoms = DenomDB.get();
+		const verified_denoms = DenomDB.get();
 		for (let i = 0; i < filtered.length; i++) {			
 			const reserveA = filtered[i].poolAssets[0].token.denom;
 			const reserveB = filtered[i].poolAssets[1].token.denom;
@@ -29,7 +29,7 @@ export class OsmosisSource extends SwapSource {
 			const balanceB =  filtered[i].poolAssets[1].token.amount;
 			const weightA =  filtered[i].poolAssets[0].weight / filtered[i].totalWeight 
 			const weightB =  filtered[i].poolAssets[1].weight / filtered[i].totalWeight 
-			let price = (new BigNumber(filtered[i].poolAssets[1].token.amount)).dividedBy( new BigNumber(filtered[i].poolAssets[0].token.amount)).times( (new BigNumber(filtered[i].poolAssets[0].weight).dividedBy(new BigNumber(filtered[i].poolAssets[1].weight))));
+			const price = (new BigNumber(filtered[i].poolAssets[1].token.amount)).dividedBy( new BigNumber(filtered[i].poolAssets[0].token.amount)).times( (new BigNumber(filtered[i].poolAssets[0].weight).dividedBy(new BigNumber(filtered[i].poolAssets[1].weight))));
 			let traceA, traceB, denomA, denomB = null;
 			let valid = true;
 			

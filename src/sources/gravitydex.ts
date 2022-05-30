@@ -22,7 +22,7 @@ export class GravityDexSource extends SwapSource {
 	async normalize(swaps) {
 		const verified_swaps = [];
 		
-		let verified_denoms = DenomDB.get();
+		const verified_denoms = DenomDB.get();
 		for (let i = 0; i < swaps.length; i++) {
 			const address = keyHashfromAddress(swaps[i].reserve_account_address);
 			
@@ -35,7 +35,7 @@ export class GravityDexSource extends SwapSource {
 			const balanceB = (reserveB.split('/')[0] == 'ibc') ? balances.find(x => x.ibc.hash == reserveB.split('/')[1]) : balances.find(x => x.base_denom == reserveB)
 			const amountA = parseCoins(balanceA.amount)[0].amount;
 			const amountB = parseCoins(balanceB.amount)[0].amount;
-			let price = (new BigNumber(amountB)).dividedBy(new BigNumber(amountA));
+			const price = (new BigNumber(amountB)).dividedBy(new BigNumber(amountA));
 			let traceA, traceB, denomA, denomB = null;
 			let valid = true;
 

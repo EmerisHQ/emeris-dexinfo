@@ -34,7 +34,7 @@ export class CrescentSource extends SwapSource {
 	async normalize(swaps) {
 		const verified_swaps = [];
 		
-		let verified_denoms = DenomDB.get();
+		const verified_denoms = DenomDB.get();
 		for (let i = 0; i < swaps.length; i++) {
 			const pool = this.getPool(swaps[i].id);		
 			
@@ -48,7 +48,7 @@ export class CrescentSource extends SwapSource {
 			
 			let traceA, traceB, denomA, denomB = null;
 			let valid = true;
-			let price = (new BigNumber(amountB)).dividedBy(new BigNumber(amountA));
+			const price = (new BigNumber(amountB)).dividedBy(new BigNumber(amountA));
 			if (reserveA.split('/')[0] == 'ibc') {
 				traceA = await DenomDB.trace(reserveA, 'crescent');				
 				denomA = verified_denoms.find(x => (x.name == traceA.base_denom && x.verified))
