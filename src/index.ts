@@ -6,6 +6,7 @@ import SwapDB from './SwapDB';
 import { EmerisDEXInfo } from '@emeris/types';
 import { OsmosisSource } from './sources/osmosis';
 import DenomDB from './DenomDB';
+import {SifchainSource} from "./sources/sifchain";
 
 const server: FastifyInstance = Fastify({})
 
@@ -37,9 +38,15 @@ const start = async () => {
     route.add(server);
   });
   await DenomDB.isLoaded();
-  SwapDB.setSources([EmerisDEXInfo.DEX.Osmosis]);
+  SwapDB.setSources([
+      EmerisDEXInfo.DEX.Osmosis,
+      EmerisDEXInfo.DEX.Sifchain
+  ]);
   const osmo = new OsmosisSource('https://lcd-osmosis.keplr.app', true, 10000);
   osmo.on('swaps', (data) => { SwapDB.update(EmerisDEXInfo.DEX.Osmosis, data) });
+
+  const sif = new SifchainSource('https://api.sifchain.finance/clp/getPools', true, 10000);
+  sif.on('swaps', (data) => { SwapDB.update(EmerisDEXInfo.DEX.Sifchain, data) });
   try {
     await server.listen(8080,'0.0.0.0');
     server.swagger();
