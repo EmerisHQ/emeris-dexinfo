@@ -15,7 +15,7 @@ export function returnAmount(inputCoin: EmerisTransactions.AbstractAmount, pool:
 	const balanceA = new BigNumber(pool.balanceA);
 	const balanceB = new BigNumber(pool.balanceB);
 	const weightingFactor = isReverse ? pool.weightB / pool.weightA : pool.weightA / pool.weightB;
-	const effectivePrice = isReverse ? balanceB.plus(inputAmount.multipliedBy(2)).dividedBy(balanceA) : balanceA.plus(inputAmount.multipliedBy(2)).dividedBy(balanceB.multipliedBy(weightingFactor));
+	const effectivePrice = isReverse ? balanceB.plus(inputAmount.multipliedBy(2)).dividedBy(balanceA.multipliedBy(weightingFactor)) : balanceA.plus(inputAmount.multipliedBy(2)).dividedBy(balanceB.multipliedBy(weightingFactor));
 	const effectiveAmount = inputAmount.dividedBy(effectivePrice);
 	const returnAmount = effectiveAmount.minus(effectiveAmount.multipliedBy(pool.swapFeeRate/ 2));
 	const returnDenom = isReverse ? pool.denomA.denom : pool.denomB.denom; 
