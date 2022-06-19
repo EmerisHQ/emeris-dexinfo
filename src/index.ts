@@ -7,6 +7,7 @@ import { EmerisDEXInfo } from '@emeris/types';
 import { OsmosisSource } from './sources/osmosis';
 import DenomDB from './DenomDB';
 import {SifchainSource} from "./sources/sifchain";
+import {JunoswapSource} from "./sources/junoswap";
 
 const server: FastifyInstance = Fastify({})
 
@@ -40,13 +41,18 @@ const start = async () => {
   await DenomDB.isLoaded();
   SwapDB.setSources([
       EmerisDEXInfo.DEX.Osmosis,
-      EmerisDEXInfo.DEX.Sifchain
+      EmerisDEXInfo.DEX.Sifchain,
+      EmerisDEXInfo.DEX.Junoswap,
   ]);
   const osmo = new OsmosisSource('https://lcd-osmosis.keplr.app', true, 10000);
   osmo.on('swaps', (data) => { SwapDB.update(EmerisDEXInfo.DEX.Osmosis, data) });
+  //
+  // const sif = new SifchainSource('https://api.sifchain.finance/clp/getPools', true, 10000);
+  // sif.on('swaps', (data) => { SwapDB.update(EmerisDEXInfo.DEX.Sifchain, data) });
 
-  const sif = new SifchainSource('https://api.sifchain.finance/clp/getPools', true, 10000);
-  sif.on('swaps', (data) => { SwapDB.update(EmerisDEXInfo.DEX.Sifchain, data) });
+  const juno = new JunoswapSource('https://raw.githubusercontent.com/CosmosContracts/junoswap-asset-list/main/pools_list.json', true, 10000);
+  juno.on('swaps', (data) => { SwapDB.update(EmerisDEXInfo.DEX.Junoswap, data) });
+
   try {
     await server.listen(8080,'0.0.0.0');
     server.swagger();
